@@ -1,0 +1,24 @@
+from collections import OrderedDict
+
+def format_duration(seconds):
+    if(seconds == 0): return 'now'
+    
+    time = OrderedDict()
+    
+    time['years'] = seconds // 31536000
+    time['days'] = seconds // 86400 % 365
+    time['hours'] = seconds // 3600 % 24
+    time['minutes'] = seconds // 60 % 60
+    time['seconds'] = seconds % 60
+    
+    output = []
+    
+    for key in time:
+        if(time[key] > 1):
+            output.append(str(time[key]) + ' ' + key)
+        elif (time[key] == 1):
+            output.append(str(time[key]) + ' ' + key[:-1])
+            
+    print(output)
+            
+    return ", ".join(output[:-2] + [" and ".join(output[-2:])])

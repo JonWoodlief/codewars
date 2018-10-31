@@ -1,0 +1,16 @@
+import operator
+
+def calc(expr):
+
+    if not expr: return 0
+    
+    ops = {"+": operator.add, "-": operator.sub, "*": operator.mul, "/": operator.truediv}
+    stack = []
+    
+    for i in expr.split(' '):
+        if i in ops:
+            stack.append(ops[i](stack.pop(-2), stack.pop()))
+        else:
+            stack.append(float(i))
+        
+    return stack.pop()

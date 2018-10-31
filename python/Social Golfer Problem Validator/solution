@@ -1,0 +1,17 @@
+from collections import defaultdict
+
+def valid(a):
+    golferList = defaultdict(list)
+    groups = len(a[0])
+    
+    for day in a:
+        if not len(day) == groups: return False
+        
+        for game in day:
+            for golfer in game:
+                golferList[golfer].append([teammate for teammate in game if teammate != golfer])
+                
+    for golfer in golferList:
+        if not len(sum(golferList[golfer], [])) == len(set(sum(golferList[golfer], []))): return False
+        elif not len(a) == len(golferList[golfer]): return False
+    return True

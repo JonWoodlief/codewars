@@ -1,0 +1,41 @@
+def who_eats_who(zoo):
+
+    def dinnerTime(predator, preyIndex):
+        output.append(predator + " eats " + whosLeft.pop(preyIndex))
+    
+    diet = {
+    "antelope": ["grass"],
+    "big-fish": ["little-fish"],
+    "bug": ["leaves"],
+    "bear": ["big-fish", "bug", "chicken", "cow", "leaves", "sheep"],
+    "chicken": ["bug"],
+    "cow": ["grass"],
+    "fox": ["chicken", "sheep"],
+    "giraffe": ["leaves"],
+    "lion": ["antelope", "cow"],
+    "panda": ["leaves"],
+    "sheep": ["grass"]
+    }
+    
+    whosLeft = zoo.split(",")
+    output = [zoo]
+    justAte = True
+    range(len(whosLeft))
+    
+    while justAte:
+        justAte = False
+        
+        for i, animal in enumerate(whosLeft):
+            if animal in diet:
+                if i > 0 and (whosLeft[i-1] in diet[animal]):
+                    dinnerTime(animal, i-1)
+                    justAte = True
+                    break
+                elif i < len(whosLeft)-1 and (whosLeft[i+1] in diet[animal]):
+                    dinnerTime(animal, i+1)
+                    justAte = True
+                    break
+                
+    output.append(','.join(whosLeft))
+    
+    return output
